@@ -10,6 +10,7 @@ export class DrizzleService {
 
   constructor(private readonly configService: ConfigService) {
     const pool = new Pool({
+      ssl: this.configService.get<boolean>('DB_SSL'),
       host: this.configService.get<string>('DB_HOST'),
       port: this.configService.get<number>('DB_PORT'),
       user: this.configService.get<string>('DB_USERNAME'),
