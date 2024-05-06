@@ -5,6 +5,7 @@ import { patchNestJsSwagger } from 'nestjs-zod';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
 
   patchNestJsSwagger();
 
@@ -20,11 +21,10 @@ async function bootstrap() {
       description: 'Enter JWT token with prefix "Token"',
       in: 'header',
     })
+    .setBasePath('api')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
-  app.setGlobalPrefix('api');
 
   await app.listen(process.env.PORT || 3000);
 }
